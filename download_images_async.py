@@ -11,21 +11,29 @@ import config
 
 
 async def fetch(url, session, total):
+    """
+    An asynchronous function to fetch and download images.
+    Returns 0 for error, or returns 1 for successful download.
+    """
     async with session.get(url) as response:
         if response.status != 200:
             # if the image link is not accessible, return 0 as error
-            print(f"[ERROR] Cannot access {url}")
+            print(f"[ERROR] Error accessing {url}")
             return 0
+    try:
         # read the image content
         r = await response.content.read()
-        # create the image filename based on the total count
-        p = os.path.join(config.IMAGE_DIR, "{}.jpg".format(str(total).zfill(8)))
-        # store the bytes as image
-        with open(p, mode="wb") as f:
-            f.write(r)
-        print("[INFO] downloaded: {}".format(p))
-        # return 1 as success
-        return 1
+    except:
+        print(f"[ERROR] Error reading image from {url}")
+        return 0
+    # create the image filename based on the total count
+    p = os.path.join(config.IMAGE_DIR, "{}.jpg".format(str(total).zfill(8)))
+    # store the bytes as image
+    with open(p, mode="wb") as f:
+        f.write(r)
+    print("[INFO] downloaded: {}".format(p))
+    # return 1 as success
+    return 1
 
 
 async def fetch_with_sem(sem, url, session, total):
@@ -72,7 +80,8 @@ if __name__ == "__main__":
     # need to add this to avoid RuntimeError in Windows
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     # create the async coroutine to be run
-    download_coroutine = async_download(urls, verbose=1)
+    # also limiting the number of images to download
+    download_coroutine = async_download(urls[: config.IMAGE_LIMIT], verbose=1)
     results = asyncio.run(download_coroutine)
     # because the results contain only 0 and 1 to indicate the success of download
     total_images = np.sum(results)
