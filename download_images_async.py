@@ -15,16 +15,16 @@ async def fetch(url, session, total):
     An asynchronous function to fetch and download images.
     Returns 0 for error, or returns 1 for successful download.
     """
-    async with session.get(url) as response:
-        if response.status != 200:
-            # if the image link is not accessible, return 0 as error
-            print(f"[ERROR] Error accessing {url}")
-            return 0
     try:
-        # read the image content
-        r = await response.content.read()
+        async with session.get(url) as response:
+            if response.status != 200:
+                # if the image link is not accessible, return 0 as error
+                print(f"[ERROR] Error accessing {url}")
+                return 0
+            # read the image content
+            r = await response.content.read()
     except:
-        print(f"[ERROR] Error reading image from {url}")
+        print(f"[ERROR] Error connecting to the url {url}")
         return 0
     # create the image filename based on the total count
     p = os.path.join(config.IMAGE_DIR, "{}.jpg".format(str(total).zfill(8)))
