@@ -88,6 +88,7 @@ if __name__ == "__main__":
     print(f"Total images downloaded = {total_images}")
 
     # to delete unreadable images
+    delete_count = 0
     for image_path in paths.list_images(config.IMAGE_DIR):
         delete = False
         try:
@@ -98,5 +99,9 @@ if __name__ == "__main__":
             delete = True
 
         if delete:
+            delete_count += 1
             print(f"[INFO] deleting {image_path}")
             os.remove(image_path)
+    print(f"[INFO] Deleted {delete_count} images")
+    print(f"[INFO] Total {total_images - delete_count} images left")
+
