@@ -1,4 +1,5 @@
 import os
+import sys
 import requests
 import time
 import cv2
@@ -71,17 +72,34 @@ async def async_download(urls, verbose=0):
 
 
 if __name__ == "__main__":
-    # the urls.txt file contains the urls for images downloaded from Google Search
+    # this text file contains the urls for images downloaded from Google Search
     # the file is obtained using the method taught in PyImageSearch
     # https://www.pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/
-    with open("urls.txt") as f:
+    with open(config.URL_FILE) as f:
         urls = f.read().split("\n")
 
+    if not os.path.exists(config.IMAGE_DIR):
+        # create the image folder if not exists
+        os.mkdir(config.IMAGE_DIR)
+    else:
+        if os.listdir(config.IMAGE_DIR):
+            while True:
+                user_input = input(
+                    f"Files are found in {config.IMAGE_DIR}, are you sure you want to overwrite them? (yes | no) "
+                )
+                if user_input in ("no", "n"):
+                    sys.exit(0)
+                elif user_input in ("yes", "y"):
+                    break
+                else:
+                    print("Please provide a valid input.")
+
+    print(f"[INFO] Downloading images from URLs in {config.URL_FILE} to {config.IMAGE_DIR} ...")
     # need to add this to avoid RuntimeError in Windows
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
     # create the async coroutine to be run
     # also limiting the number of images to download
-    download_coroutine = async_download(urls[: config.IMAGE_LIMIT], verbose=1)
+    download_coroutine = async_download(urls[: config.IMAGE_LIMIT], verbose=0)
     results = asyncio.run(download_coroutine)
     # because the results contain only 0 and 1 to indicate the success of download
     total_images = np.sum(results)
@@ -102,6 +120,6 @@ if __name__ == "__main__":
             delete_count += 1
             print(f"[INFO] deleting {image_path}")
             os.remove(image_path)
-    print(f"[INFO] Deleted {delete_count} images")
+    print(f"[INFO] Deleted {delete_count} corrupted images")
     print(f"[INFO] Total {total_images - delete_count} images left")
 

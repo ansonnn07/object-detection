@@ -1,12 +1,33 @@
 import os
+import sys
 import requests
 import time
 
+import config
 
-with open("urls.txt") as f:
+# this text file contains the urls for images downloaded from Google Search
+# the file is obtained using the method taught in PyImageSearch
+# https://www.pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/
+with open(config.URL_FILE) as f:
     urls = f.read().split("\n")
-total = 0
 
+if not os.path.exists(config.IMAGE_DIR):
+    # create the image folder if not exists
+    os.mkdir(config.IMAGE_DIR)
+else:
+    if os.listdir(config.IMAGE_DIR):
+        while True:
+            user_input = input(
+                f"Files are found in {config.IMAGE_DIR}, are you sure you want to overwrite them? (yes | no) "
+            )
+            if user_input in ("no", "n"):
+                sys.exit(0)
+            elif user_input in ("yes", "y"):
+                break
+            else:
+                print("Please provide a valid input.")
+
+total = 0
 start = time.perf_counter()
 for url in urls:
     try:
