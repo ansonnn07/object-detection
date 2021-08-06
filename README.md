@@ -19,6 +19,9 @@ The project starts from downloading images from Google Search using a script pre
 
 Then, download the images using `download_images.py`. You can choose either to download asynchronously (recommended, much faster) or sequentially. Remember to change the configurations in `config.py` as necessary to make sure the script works as you wanted.
 
-Then, the images will be labelled using [Label Studio](https://labelstud.io/).
+Then, the images will be labelled using [Label Studio](https://labelstud.io/). Run Label Studio using Docker is the easiest.
+```
+docker run -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/label-studio:latest
+```
 
 The object detection model (YOLOR in this case) is trained and tested in this [Colab Notebook](https://colab.research.google.com/drive/10pKU_u90_jgfDrG3YsMK7h_RbLW6yZ_P).

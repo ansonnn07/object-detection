@@ -21,7 +21,7 @@ label_paths = [os.path.join(LABEL_DIR, i) for i in label_paths]
 print(f"Total images = {len(image_paths)}")
 
 
-# split the dataset into ratio of train:val:test of 75%:15%:10%
+# split the dataset into ratio of train:valid:test of 75%:15%:10%
 # 207:42:28
 X_train, X_val_test, y_train, y_val_test = train_test_split(
     image_paths, label_paths, test_size=(VAL_SIZE + TEST_SIZE), random_state=42
@@ -38,7 +38,7 @@ print(f"Total testing images = {len(y_test)}")
 
 
 def copy_data(image_paths, label_paths, data_type, test_run=0):
-    assert data_type in ("train", "val", "test")
+    assert data_type in ("train", "valid", "test")
     image_dest = os.path.join(BASE_DIR, data_type, "images")
     label_dest = os.path.join(BASE_DIR, data_type, "labels")
 
@@ -57,11 +57,11 @@ def copy_data(image_paths, label_paths, data_type, test_run=0):
             break
 
 
-# copy all the images and label files to the respective train, val and test directories
+# copy all the images and label files to the respective train, valid and test directories
 if TEST_RUN:
     print("[INFO] Copying only for 1 image in each split ...")
 
 copy_data(X_train, y_train, "train", TEST_RUN)
-copy_data(X_val, y_val, "val", TEST_RUN)
+copy_data(X_val, y_val, "valid", TEST_RUN)
 copy_data(X_test, y_test, "test", TEST_RUN)
 print("[INFO] Files copied successfully.")

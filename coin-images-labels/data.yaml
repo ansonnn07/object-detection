@@ -1,0 +1,4 @@
+train: coin-images-labels/train/images 
+val: coin-images-labels/valid/images
+nc: 6
+names: ["50", "1r", "5", "10", "20", "1c"]
