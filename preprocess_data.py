@@ -1,6 +1,7 @@
 import os
 from imutils import paths
 import shutil
+import cv2
 from sklearn.model_selection import train_test_split
 
 BASE_DIR = "coin-images-labels"
@@ -37,7 +38,7 @@ print(f"Total validation images = {len(y_val)}")
 print(f"Total testing images = {len(y_test)}")
 
 
-def copy_data(image_paths, label_paths, data_type, test_run=0):
+def preprocess_data(image_paths, label_paths, data_type, test_run=TEST_RUN):
     assert data_type in ("train", "valid", "test")
     image_dest = os.path.join(BASE_DIR, data_type, "images")
     label_dest = os.path.join(BASE_DIR, data_type, "labels")
@@ -49,8 +50,17 @@ def copy_data(image_paths, label_paths, data_type, test_run=0):
             os.makedirs(destination)
 
     for image_path, label_path in zip(image_paths, label_paths):
-        shutil.copy2(image_path, image_dest)
+        # copy the label file to the new directory
+        # image_dest_path = shutil.copy2(image_path, image_dest)
         shutil.copy2(label_path, label_dest)
+
+        # also resize the images to 448 x 448 at the same time
+        # to prepare it for YOLO training
+        img = cv2.imread(image_path)
+        img = cv2.resize(img, (448, 448))
+        image_dest_path = os.path.join(image_dest, os.path.basename(image_path))
+        cv2.imwrite(image_dest_path, img)
+
         if test_run:
             print(f"copying {image_path} to {image_dest}")
             print(f"copying {label_path} to {label_dest}")
@@ -61,7 +71,7 @@ def copy_data(image_paths, label_paths, data_type, test_run=0):
 if TEST_RUN:
     print("[INFO] Copying only for 1 image in each split ...")
 
-copy_data(X_train, y_train, "train", TEST_RUN)
-copy_data(X_val, y_val, "valid", TEST_RUN)
-copy_data(X_test, y_test, "test", TEST_RUN)
+preprocess_data(X_train, y_train, "train")
+preprocess_data(X_val, y_val, "valid")
+preprocess_data(X_test, y_test, "test")
 print("[INFO] Files copied successfully.")
