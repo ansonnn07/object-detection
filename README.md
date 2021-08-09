@@ -16,18 +16,71 @@ The Malaysia coins that can be detected are only from the three images below. Th
 
 You may download the preprocessed dataset from the [Google Drive here](https://drive.google.com/drive/folders/10A2zMJNMYdniiNGWiM7E1BWH-GdsXJ5v?usp=sharing). But you should try to prepare your own dataset if you wish to learn the entire process.
 
-## Installing Packages
+## Package Installation
+NOTE: For this project, it is assumed that you have already installed Anaconda in your machine.
+
+Run the following command in your Anaconda prompt (Anaconda's terminal or your terminal of choice) to create a virtual environment named `tfod` with Python version 3.8 installed:
 ```
-pip install -r requirements.txt
+conda create --name tfod python=3.8
+```
+Then remember to activate the environment with the command below every time you open up a new terminal before proceeding.
+```
+conda activate tfod
 ```
 
-## Install and Run Label Studio
+For the purpose of using TensorFlow with GPU on your local machine, please refer to [this YouTube video](https://youtu.be/hHWkvEcDBO0) for complete instructions on how to install the dependencies (CUDA, cuDNN for TensorFlow GPU support). Beware that this is a very tedious and error-prone process, if there is any error, please don't hesitate to ask for help.
+
+After installing TensorFlow, you may proceed to install the rest of the packages with the command below (assuming that your terminal is already inside this repo's directory):
+```
+pip install --no-cache-dir -r requirements.txt
+```
+
+After installing the packages, create a **Jupyter kernel** to be selected in Jupyter Notebook/Lab with this command:
+```
+python -m ipykernel install --user --name tfod --display-name "tfod"
+```
+
+Also run this to update the `ipykernel` to avoid some errors.
+```
+conda install ipykernel --update-deps --force-reinstall
+```
+
+## COCO API Installation
+
+For Windows:
+<details><summary> <b>Expand</b> </summary>
+
+1. Download Visual C++ 2015 Build Tools from this [Microsoft Link](https://go.microsoft.com/fwlink/?LinkId=691126) and install it with default selection.
+2. Go to `C:\Program Files (x86)\Microsoft Visual C++ Build Tools` and run the `vcbuildtools_msbuild.bat` file
+3. In Anaconda prompt, run
+```python
+pip install git+https://github.com/philferriere/cocoapi.git#egg=pycocotools^&subdirectory=PythonAPI
+```
+</details>
+
+<br>
+For Linux:
+<details><summary> <b>Expand</b> </summary>
+
+```
+git clone https://github.com/cocodataset/cocoapi.git
+cd cocoapi/PythonAPI
+make
+cp -r pycocotools <PATH_TO_TF>/TensorFlow/models/research/
+```
+</details>
+
+## Running Label Studio
+
+Run the following command in your terminal (an error about JSON Field support might pop up but it does not matt):
+```
+label-studio
+```
 
 Installing using Docker
 <details><summary> <b>Expand</b> </summary>
 
 Just run the command below in your terminal, all the data and label history will be stored in the `mydata` folder of the current directory where you run the command.
-
 ```
 docker run --rm -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/label-studio:latest
 ```

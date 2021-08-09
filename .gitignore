@@ -9,3 +9,5 @@ __pycache__
 
 # skip dataset images
 coin-images-labels
+
+/Tensorflow

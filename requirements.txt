@@ -1,6 +1,11 @@
-labelstudio
+numpy
+matplotlib
+opencv-contrib-python
+jupyterlab
 tensorflow
 tensorflow-addons
-matplotlib
 gin-config
 pytz
+label-studio
+pyyaml
+wget
