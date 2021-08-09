@@ -10,7 +10,11 @@ LABEL_DIR = os.path.join(BASE_DIR, "labels")
 
 VAL_SIZE = 0.15
 TEST_SIZE = 0.05
+
+# set this to 1 to test run for one image
 TEST_RUN = 0
+# set this to 1 to resize the images to 448 x 448 based on YOLO
+PREPROCESS_YOLO = 1
 
 # get the image paths and sort them to make sure they align with the label files,
 # the label files have the exact same names as their image files
@@ -57,7 +61,8 @@ def preprocess_data(image_paths, label_paths, data_type, test_run=TEST_RUN):
         # also resize the images to 448 x 448 at the same time
         # to prepare it for YOLO training
         img = cv2.imread(image_path)
-        img = cv2.resize(img, (448, 448))
+        if PREPROCESS_YOLO:
+            img = cv2.resize(img, (448, 448))
         image_dest_path = os.path.join(image_dest, os.path.basename(image_path))
         cv2.imwrite(image_dest_path, img)
 

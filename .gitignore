@@ -1,4 +1,10 @@
 __pycache__
 *.rar
 
+# skip largeweights file
+*.pt
+
+# skip notebook checkpoints
+.ipynb_checkpoints
+
 # images

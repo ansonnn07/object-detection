@@ -1,0 +1,6 @@
+labelstudio
+tensorflow
+tensorflow-addons
+matplotlib
+gin-config
+pytz
