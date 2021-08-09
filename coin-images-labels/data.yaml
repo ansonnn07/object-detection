@@ -1,6 +1,0 @@
-train: ../train/images 
-val: ../valid/images
-
-nc: 6
-# based on classes.txt generated from Label Studio
-names: ["50", "1r", "5", "10", "20", "1c"]

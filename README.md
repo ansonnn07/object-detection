@@ -14,6 +14,8 @@ The Malaysia coins that can be detected are only from the three images below. Th
 **Third Series** <br>
 [![third-series-coins](images/syiling_3.gif)](https://www.bnm.gov.my/-/third-series-of-malaysian-coins)
 
+You may download the preprocessed dataset from the [Google Drive here](https://drive.google.com/drive/folders/10A2zMJNMYdniiNGWiM7E1BWH-GdsXJ5v?usp=sharing). But you should try to prepare your own dataset if you wish to learn the entire process.
+
 ## Installing Packages
 ```
 pip install -r requirements.txt
@@ -25,7 +27,6 @@ Installing using Docker
 <details><summary> <b>Expand</b> </summary>
 
 Just run the command below in your terminal, all the data and label history will be stored in the `mydata` folder of the current directory where you run the command.
-
 
 ```
 docker run --rm -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/label-studio:latest

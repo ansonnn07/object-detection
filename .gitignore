@@ -7,4 +7,5 @@ __pycache__
 # skip notebook checkpoints
 .ipynb_checkpoints
 
-# images
+# skip dataset images
+coin-images-labels
