@@ -1,3 +1,5 @@
+imutils
+scikit-learn
 numpy
 matplotlib
 opencv-contrib-python

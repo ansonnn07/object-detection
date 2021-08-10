@@ -8,6 +8,7 @@ __pycache__
 .ipynb_checkpoints
 
 # skip dataset images
-coin-images-labels
+coin-annotations-pascalvoc
+coin-images-labels-yolo
 
 /Tensorflow

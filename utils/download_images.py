@@ -149,4 +149,3 @@ if __name__ == "__main__":
             os.remove(image_path)
     print(f"[INFO] Deleted {delete_count} corrupted images")
     print(f"[INFO] Total {total_images - delete_count} images left")
-

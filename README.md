@@ -1,9 +1,11 @@
-# Coin Detection
+# Coin Detection using TensorFlow Object Detection (TFOD) API
 
 ## Summary
 A project to train an object detection model to detect Malaysia coins and the value of the coins.
 
-The Malaysia coins that can be detected are only from the three images below. This is based on the Malaysia's standard according to the government Website for [First Series](https://www.bnm.gov.my/-/the-first-series-past-coin) and [Second Series](https://www.bnm.gov.my/-/the-second-series-past-coin) and [Third Series](https://www.bnm.gov.my/-/third-series-of-malaysian-coins). But the back of the coins for the **First Series** are too similar, therefore they are excluded from the annotations to avoid erroneous predictions.
+The Malaysia coins that can be detected are only from the three images below. This is based on the Malaysia's standard according to the government Website for [First Series](https://www.bnm.gov.my/-/the-first-series-past-coin) and [Second Series](https://www.bnm.gov.my/-/the-second-series-past-coin) and [Third Series](https://www.bnm.gov.my/-/third-series-of-malaysian-coins).
+
+NOTE: In the Jupyter notebook, only about the `50`, `20`, `10`, and `5 cents` classes will be used because both `1 cent` and `1 ringgit` coins are not usable in Malaysia anymore. Also, only about 10 images for each class are used as prototyping to demonstrate how to train an object detection model.
 
 **First Series** <br>
 [![first-series-coins](images/syiling_1.png)](https://www.bnm.gov.my/-/the-first-series-past-coin)
@@ -14,10 +16,10 @@ The Malaysia coins that can be detected are only from the three images below. Th
 **Third Series** <br>
 [![third-series-coins](images/syiling_3.gif)](https://www.bnm.gov.my/-/third-series-of-malaysian-coins)
 
-You may download the preprocessed dataset from the [Google Drive here](https://drive.google.com/drive/folders/10A2zMJNMYdniiNGWiM7E1BWH-GdsXJ5v?usp=sharing). But you should try to prepare your own dataset if you wish to learn the entire process.
+You may download the preprocessed dataset from the [Google Drive here](https://drive.google.com/drive/folders/10A2zMJNMYdniiNGWiM7E1BWH-GdsXJ5v?usp=sharing). But you should try to prepare your own dataset (refer to the `Image Collection.ipynb` notebook) if you wish to learn the entire process.
 
 ## Package Installation
-NOTE: For this project, it is assumed that you have already installed Anaconda in your machine.
+NOTE: For this project, it is assumed that you have already installed Anaconda in your machine. The installation for this TFOD API is based on the [docs here](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html).
 
 Run the following command in your Anaconda prompt (Anaconda's terminal or your terminal of choice) to create a virtual environment named `tfod` with Python version 3.8 installed:
 ```
@@ -70,17 +72,21 @@ cp -r pycocotools <PATH_TO_TF>/TensorFlow/models/research/
 ```
 </details>
 
+## TensorFlow Object Detection (TFOD) Installation
+
+After installing all the packages above, you may proceed to the `Training and Detection.ipynb` notebook to install the rest of the dependencies such as protobuf and the TFOD package. You will only need to install once and you will not need to install them again in the same virtual environment.
+
 ## Running Label Studio
 
-Run the following command in your terminal (an error about JSON Field support might pop up but it does not matt):
+Run the following command in your terminal (an error about JSON Field support might pop up but it does not matter, just enter 'n' without the quotes to open up Label Studio):
 ```
 label-studio
 ```
 
-Installing using Docker
+Or run using Docker
 <details><summary> <b>Expand</b> </summary>
 
-Just run the command below in your terminal, all the data and label history will be stored in the `mydata` folder of the current directory where you run the command.
+Just run the command below in your terminal, all the data and label history will be stored in the `mydata` folder of the current directory where you run the command, and open the Label Studio app in http://localhost:8080/.
 ```
 docker run --rm -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/label-studio:latest
 ```
