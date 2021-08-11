@@ -1,7 +1,9 @@
 imutils
+wget
 scikit-learn
 numpy
 matplotlib
+pandas
 opencv-contrib-python
 jupyterlab
 tensorflow

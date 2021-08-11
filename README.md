@@ -55,8 +55,9 @@ For Windows:
 1. Download Visual C++ 2015 Build Tools from this [Microsoft Link](https://go.microsoft.com/fwlink/?LinkId=691126) and install it with default selection.
 2. Go to `C:\Program Files (x86)\Microsoft Visual C++ Build Tools` and run the `vcbuildtools_msbuild.bat` file
 3. In Anaconda prompt, run
-```python
-pip install git+https://github.com/philferriere/cocoapi.git#egg=pycocotools^&subdirectory=PythonAPI
+```
+pip install cython
+pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
 ```
 </details>
 
