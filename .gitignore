@@ -7,6 +7,7 @@ __pycache__
 
 # skip notebook checkpoints
 .ipynb_checkpoints
+.virtual_documents
 
 # skip dataset images
 coin-annotations-pascalvoc
