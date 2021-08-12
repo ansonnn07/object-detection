@@ -60,7 +60,7 @@ For Windows:
 pip install cython
 pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
 ```
-5. Go to C:\Users\<YOUR USERNAME>\anaconda3\envs\tfod\Lib\site-packages\pycocotools and open up the `cocoeval.py` with your IDE (e.g. VS Code or PyCharm), change each of the two lines of 507 & 508, and also lines 518 & 519 to these two lines of code below. The only difference should be to add the `int` to the `np.round(...)` terms to avoid errors when running evaluation of our model, this is a very [inconvenient workaround for the issue](https://github.com/google/automl/issues/487) because they have not updated to the latest commit from the official COCOAPI GitHub repo. And also the pain of using Windows to install such dependencies (Linux is always easier). You can omit this if you don't care about evaluating your model.
+5. Go to `C:\Users\<YOUR USERNAME>\anaconda3\envs\tfod\Lib\site-packages\pycocotools` and open up the `cocoeval.py` with your IDE (e.g. VS Code or PyCharm), change each of the two lines of 507 & 508, and also lines 518 & 519 to these two lines of code below. The only difference should be to add the `int` to the `np.round(...)` terms to avoid errors when running evaluation of our model, this is a very [inconvenient workaround for the issue](https://github.com/google/automl/issues/487) because they have not updated to the latest commit from the official COCOAPI GitHub repo. And also the pain of using Windows to install such dependencies (Linux is always easier). You can omit this if you don't care about evaluating your model.
 ```
 self.iouThrs = np.linspace(.5, 0.95, int(np.round((0.95 - .5) / .05)) + 1, endpoint=True)
 self.recThrs = np.linspace(.0, 1.00, int(np.round((1.00 - .0) / .01)) + 1, endpoint=True)
@@ -106,6 +106,6 @@ The project starts from downloading images from Google Search using a script pre
 
 Then, download the images using `download_images.py`. You can choose either to download asynchronously (recommended, much faster) or sequentially. Remember to change the configurations in `config.py` as necessary to make sure the script works as you wanted.
 
-Then, the images will be labelled using [Label Studio](https://labelstud.io/). Run Label Studio using Docker is the easiest. 
+Then, the images will be labelled using [Label Studio](https://labelstud.io/).
 
-The object detection model (YOLOR in this case) is trained and tested in this [Colab Notebook](https://colab.research.google.com/drive/10pKU_u90_jgfDrG3YsMK7h_RbLW6yZ_P).
+For training, you may open it directly in [Google Colab here](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb). Or refer to the `2. Training and Detection.ipynb` notebook to train locally.
