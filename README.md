@@ -52,12 +52,18 @@ conda install ipykernel --update-deps --force-reinstall
 For Windows:
 <details><summary> <b>Expand</b> </summary>
 
-1. Download Visual C++ 2015 Build Tools from this [Microsoft Link](https://go.microsoft.com/fwlink/?LinkId=691126) and install it with default selection.
-2. Go to `C:\Program Files (x86)\Microsoft Visual C++ Build Tools` and run the `vcbuildtools_msbuild.bat` file
-3. In Anaconda prompt, run
+1. Download Visual C++ 2015 Build Tools from this [Microsoft Link](https://go.microsoft.com/fwlink/?LinkId=691126) and install it with default selection
+2. Also install the full Visual C++ 2015 Build Tools from [here](https://go.microsoft.com/fwlink/?LinkId=691126) to make sure everything works
+3. Go to `C:\Program Files (x86)\Microsoft Visual C++ Build Tools` and run the `vcbuildtools_msbuild.bat` file
+4. In Anaconda prompt, run
 ```
 pip install cython
 pip install git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
+```
+5. Go to C:\Users\<YOUR USERNAME>\anaconda3\envs\tfod\Lib\site-packages\pycocotools and open up the `cocoeval.py` with your IDE (e.g. VS Code or PyCharm), change each of the two lines of 507 & 508, and also lines 518 & 519 to these two lines of code below. The only difference should be to add the `int` to the `np.round(...)` terms to avoid errors when running evaluation of our model, this is a very [inconvenient workaround for the issue](https://github.com/google/automl/issues/487) because they have not updated to the latest commit from the official COCOAPI GitHub repo. And also the pain of using Windows to install such dependencies (Linux is always easier). You can omit this if you don't care about evaluating your model.
+```
+self.iouThrs = np.linspace(.5, 0.95, int(np.round((0.95 - .5) / .05)) + 1, endpoint=True)
+self.recThrs = np.linspace(.0, 1.00, int(np.round((1.00 - .0) / .01)) + 1, endpoint=True)
 ```
 </details>
 

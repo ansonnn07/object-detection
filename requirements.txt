@@ -1,5 +1,6 @@
 imutils
 wget
+scikit-image
 scikit-learn
 numpy
 matplotlib

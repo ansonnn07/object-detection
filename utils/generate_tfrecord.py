@@ -75,9 +75,16 @@ args = parser.parse_args()
 if args.image_dir is None:
     args.image_dir = args.xml_dir
 
-# remove quotes if passed in by user
-if "'" in args.image_ext:
-    args.image_ext = args.image_ext.replace("'", "")
+if args.image_ext:
+    # remove quotes if passed in by user
+    args.image_ext = args.image_ext.strip().replace("'", "")
+    args.image_ext = args.image_ext.replace('"', "")
+    if " " in args.image_ext:
+        # split into list for multiple extensions
+        args.image_ext = args.image_ext.split(" ")
+    else:
+        # append to a list to be able to loop it later
+        args.image_ext = [args.image_ext]
 
 label_map = label_map_util.load_labelmap(args.labels_path)
 label_map_dict = label_map_util.get_label_map_dict(label_map)
@@ -101,22 +108,16 @@ def xml_to_csv(path):
     for xml_file in glob.glob(path + "/*.xml"):
         tree = ET.parse(xml_file)
         root = tree.getroot()
-        filename = root.find("filename").text
-        if args.image_ext:
-            filename = f"{filename}.{args.image_ext}"
-        width = int(root.find("size").find("width").text)
-        height = int(root.find("size").find("height").text)
         for member in root.findall("object"):
-            bndbox = member.find("bndbox")
             value = (
-                filename,
-                width,
-                height,
-                member.find("name").text,
-                int(bndbox.find("xmin").text),
-                int(bndbox.find("ymin").text),
-                int(bndbox.find("xmax").text),
-                int(bndbox.find("ymax").text),
+                root.find("filename").text,
+                int(root.find("size")[0].text),
+                int(root.find("size")[1].text),
+                member[0].text,
+                int(member[4][0].text),
+                int(member[4][1].text),
+                int(member[4][2].text),
+                int(member[4][3].text),
             )
             xml_list.append(value)
     column_name = [
@@ -147,15 +148,24 @@ def split(df, group):
 
 
 def create_tf_example(group, path):
-    image_path = os.path.join(path, "{}".format(group.filename))
+    image_path = os.path.join(path, group.filename)
+
+    if not os.path.exists(image_path):
+        if args.image_ext:
+            for image_ext in args.image_ext:
+                new_image_path = f"{image_path}.{image_ext}"
+                if os.path.exists(new_image_path):
+                    image_path = new_image_path
+                    break
     if not os.path.exists(image_path):
         raise FileNotFoundError(
             f"Image {image_path} is not found. If you are using Label Studio, "
-            "try pass in -e <IMAGE_EXTENSION> as an argument (e.g. -e jpg) "
+            'try pass in -e <IMAGE_EXTENSIONS> as an argument (e.g. -e "jpg png") '
             "to append the image extension at the end as the XML file exported "
             "from Label Studio did not include file extension in the filename."
         )
-    with tf.gfile.GFile(os.path.join(path, "{}".format(group.filename)), "rb") as fid:
+
+    with tf.gfile.GFile(image_path, "rb") as fid:
         encoded_jpg = fid.read()
     encoded_jpg_io = io.BytesIO(encoded_jpg)
     image = Image.open(encoded_jpg_io)
