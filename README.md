@@ -1,11 +1,11 @@
-# Coin Detection using TensorFlow Object Detection (TFOD) API
+# Custom Training with TensorFlow Object Detection (TFOD) API
 
 ## Summary
 A project to train an object detection model to detect Malaysia coins and the value of the coins.
 
 The Malaysia coins that can be detected are only from the three images below. This is based on the Malaysia's standard according to the government Website for [First Series](https://www.bnm.gov.my/-/the-first-series-past-coin) and [Second Series](https://www.bnm.gov.my/-/the-second-series-past-coin) and [Third Series](https://www.bnm.gov.my/-/third-series-of-malaysian-coins).
 
-NOTE: In the Jupyter notebook, only about the `50`, `20`, `10`, and `5 cents` classes will be used because both `1 cent` and `1 ringgit` coins are not usable in Malaysia anymore. Also, only about 10 images for each class are used as prototyping to demonstrate how to train an object detection model.
+NOTE: In the Jupyter notebook, only the `50`, `20`, `10`, and `5 cents` classes will be used because both `1 cent` and `1 ringgit` coins are not usable in Malaysia anymore.
 
 **First Series** <br>
 [![first-series-coins](images/syiling_1.png)](https://www.bnm.gov.my/-/the-first-series-past-coin)
@@ -15,8 +15,6 @@ NOTE: In the Jupyter notebook, only about the `50`, `20`, `10`, and `5 cents` cl
 
 **Third Series** <br>
 [![third-series-coins](images/syiling_3.gif)](https://www.bnm.gov.my/-/third-series-of-malaysian-coins)
-
-You may download the preprocessed dataset from the [Google Drive here](https://drive.google.com/drive/folders/10A2zMJNMYdniiNGWiM7E1BWH-GdsXJ5v?usp=sharing). But you should try to prepare your own dataset (refer to the `Image Collection.ipynb` notebook) if you wish to learn the entire process.
 
 ## Package Installation
 NOTE: For this project, it is assumed that you have already installed Anaconda in your machine. The installation for this TFOD API is based on the [docs here](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html).
@@ -101,11 +99,7 @@ docker run --rm -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/
 **NOTE**: If you don't have Docker installed in your machine. Then follow the [instructions here at the docs](https://docs.docker.com/get-docker/) to install first. If you are on Windows, you will need to setup both Windows Subsystem for Linux (WSL) and Docker. Windows will need to use WSL in order for the program to work properly. Follow the [documentation here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for setting up WSL.
 </details>
 
-## Details for the steps
-The project starts from downloading images from Google Search using a script prepared based on [PyImageSearch tutorial](https://www.pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/). The URLs are scraped using a Javascript script `scrape_image.js` copied from the tutorial. This script will download all the images in the Google image search webpage, therefore, search for the images you want in Google Search, scroll down until the number of images you want (or until the end), then paste all the code here into the Console in your browser (Chrome is recommended). A new file `urls.txt` containing all the image URLs will be downloaded to your computer.
+## Details
+Refer to the `1. Image Collection.ipynb` notebook for the steps for collecting and labeling the images.
 
-Then, download the images using `download_images.py`. You can choose either to download asynchronously (recommended, much faster) or sequentially. Remember to change the configurations in `config.py` as necessary to make sure the script works as you wanted.
-
-Then, the images will be labelled using [Label Studio](https://labelstud.io/).
-
-For training, you may open it directly in [Google Colab here](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb). Or refer to the `2. Training and Detection.ipynb` notebook to train locally.
+For training, you may open the `2. Training and Detection.ipynb` notebook directly in [Google Colab](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to train there. Or download the notebook to train locally.

@@ -1,3 +1,5 @@
+# A script created to rename some images to be more specific
+
 import os
 from imutils import paths
 

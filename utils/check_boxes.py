@@ -1,3 +1,5 @@
+## A script to display and check the bounding boxes generated from YOLO txt format
+
 import cv2
 import os
 import imutils

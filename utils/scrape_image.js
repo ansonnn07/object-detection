@@ -1,5 +1,6 @@
 // from https://www.pyimagesearch.com/2017/12/04/how-to-create-a-deep-learning-dataset-using-google-images/
-// to scrape the URLs of the images from Google Search
+// to scrape the URLs of the images from Google Search and
+// compile and download them to a `url.txt` file
 
 /**
  * simulate a right-click event so we can grab the image URL using the

@@ -61,8 +61,6 @@ IMAGE_DIR = r"T:\New Download Folder\face-mask-detection\images"
 XML_DIR = r"C:\Users\user\Desktop\ANSON\Python Scripts\coin_detection\Tensorflow\workspace\images\train"
 
 df = xml_to_csv(XML_DIR)
-print(df)
-sys.exit(0)
 
 cnt = 0
 error_cnt = 0

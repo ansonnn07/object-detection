@@ -1,3 +1,22 @@
+"""
+A script created to download the images from Google Search using the URLs in the `urls.txt`
+file generated from the `scrape_image.js` script.
+NOTE: There is an easier and faster method described in the README file.
+
+To use this script, follow the instructions here first:
+The URLs are scraped using a Javascript script `scrape_image.js` copied from the tutorial
+by PyImageSearch. This script will download all the images in the Google image search 
+webpage, therefore, search for the images you want in Google Search, scroll down until the 
+number of images you want (or until the end), then paste all the code here into the Console in
+your browser (Chrome is recommended). A new file `urls.txt` containing all the image URLs will be downloaded
+to your computer.
+
+Then, download the images from the URLs using this script. 
+You can choose either to download asynchronously (recommended, much faster) 
+or sequentially. Remember to change the configurations in `config.py` as necessary
+to make sure the script works as you wanted.
+"""
+
 import os
 import sys
 import requests

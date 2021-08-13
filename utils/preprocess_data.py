@@ -1,3 +1,6 @@
+## A script created to preprocess the data for YOLOR model training
+# The things done here are: split, resize, copy to train, valid, test set
+
 import os
 from imutils import paths
 import shutil

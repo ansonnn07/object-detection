@@ -1,3 +1,5 @@
+# A script created to scrape images directly from Google Search link but do not work well
+
 import os
 import cv2
 import io
