@@ -197,16 +197,16 @@ def create_tf_example(group, path):
         # sanity checks to make sure the annotations are correct
         if xmin < 0:
             print(f"[WARNING] Error with {filename.decode()}, xmin {xmin} < 0")
-            print(f"\t{row.xmin = }; {width = }")
+            print(f"\t row.xmin = {row.xmin} ; width = {width}")
         if xmax > 1:
             print(f"[WARNING] Error with {filename.decode()}, xmax {xmax} > 1")
-            print(f"\t{row.xmax = }; {width = }")
+            print(f"\t row.xmax = {row.xmax} ; width = {width}")
         if ymin < 0:
             print(f"[WARNING] Error with {filename.decode()}, ymin {ymin} < 0")
-            print(f"\t{row.ymin = }; {height = }")
+            print(f"\t row.ymin = {row.ymin} ; height = {height}")
         if ymax > 1:
             print(f"[WARNING] Error with {filename.decode()}, ymax {ymax} > 1")
-            print(f"\t{row.ymax = }; {height = }")
+            print(f"\t row.ymax = {row.ymax} ; height = {height}")
         xmins.append(xmin)
         xmaxs.append(xmax)
         ymins.append(ymin)
