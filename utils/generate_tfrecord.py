@@ -22,6 +22,7 @@ import pandas as pd
 import io
 import xml.etree.ElementTree as ET
 import argparse
+import sys
 
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"  # Suppress TensorFlow logging (1)
 import tensorflow.compat.v1 as tf
@@ -128,7 +129,7 @@ def xml_to_csv(path):
         "filename",
         "width",
         "height",
-        "class",
+        "classname",
         "xmin",
         "ymin",
         "xmax",
@@ -171,9 +172,12 @@ def create_tf_example(group, path):
 
     with tf.gfile.GFile(image_path, "rb") as fid:
         encoded_jpg = fid.read()
-    encoded_jpg_io = io.BytesIO(encoded_jpg)
-    image = Image.open(encoded_jpg_io)
-    width, height = image.size
+
+    ## WARNING, THESE FOLLOWING 3 LINES MIGHT READ THE IMAGE IN THE ROTATED DIMENSIONS
+    ## which will cause the width and height to be inverted!
+    # encoded_jpg_io = io.BytesIO(encoded_jpg)
+    # image = Image.open(encoded_jpg_io)
+    # width, height = image.size
 
     filename = group.filename.encode("utf8")
     image_format = b"jpg"
@@ -184,13 +188,31 @@ def create_tf_example(group, path):
     classes_text = []
     classes = []
 
-    for index, row in group.object.iterrows():
-        xmins.append(row["xmin"] / width)
-        xmaxs.append(row["xmax"] / width)
-        ymins.append(row["ymin"] / height)
-        ymaxs.append(row["ymax"] / height)
-        classes_text.append(row["class"].encode("utf8"))
-        classes.append(class_text_to_int(row["class"]))
+    for row in group.object.itertuples():
+        width, height = row.width, row.height
+        xmin = row.xmin / width
+        xmax = row.xmax / width
+        ymin = row.ymin / height
+        ymax = row.ymax / height
+        # sanity checks to make sure the annotations are correct
+        if xmin < 0:
+            print(f"[WARNING] Error with {filename.decode()}, xmin {xmin} < 0")
+            print(f"\t{row.xmin = }; {width = }")
+        if xmax > 1:
+            print(f"[WARNING] Error with {filename.decode()}, xmax {xmax} > 1")
+            print(f"\t{row.xmax = }; {width = }")
+        if ymin < 0:
+            print(f"[WARNING] Error with {filename.decode()}, ymin {ymin} < 0")
+            print(f"\t{row.ymin = }; {height = }")
+        if ymax > 1:
+            print(f"[WARNING] Error with {filename.decode()}, ymax {ymax} > 1")
+            print(f"\t{row.ymax = }; {height = }")
+        xmins.append(xmin)
+        xmaxs.append(xmax)
+        ymins.append(ymin)
+        ymaxs.append(ymax)
+        classes_text.append(row.classname.encode("utf8"))
+        classes.append(class_text_to_int(row.classname))
 
     tf_example = tf.train.Example(
         features=tf.train.Features(
