@@ -26,6 +26,8 @@ You may also refer to the following Colab notebooks to examine the trained versi
 2. Coin detection dataset (large, 277 images, from Google Search, trained with SSD model): [link](https://colab.research.google.com/drive/1aTliHKpwqxZaokf2YTmg0vwmRPUJnpzY?usp=sharing)
 3. Face Mask Detection dataset (853 images, trained with CenterNet model): [link](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing)
 
+There is also an `inference.py` script added to show how to run inference on single image, or multiple images, or webcam, after loading an exported trained model.
+
 ## Package Installation for Local Machine
 NOTE: If you are on Google Colab, you only need to run some of the cells in the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to install TFOD API, you **DO NOT** need to run the installation steps here.
 

@@ -4,7 +4,13 @@ python inference.py -i <path to input image or directory> -e <EXPORTED_MODEL PAT
 python inference.py -w -e <EXPORTED_MODEL PATH> -l <label_map.pbtxt file path>
 
 Example:
+# for single image
+python inference.py -i images/test_images/maksssksksss27.png -e Tensorflow/workspace/models/my_centernet_hg104_512x512_coco17_tpu-8/export -l "Tensorflow/workspace/models/my_centernet_hg104_512x512_coco17_tpu-8/export/label_map.pbtxt"
+
+# for multiple images in "images/test_images" directory
 python inference.py -i images/test_images -e Tensorflow/workspace/models/my_centernet_hg104_512x512_coco17_tpu-8/export -l "Tensorflow/workspace/models/my_centernet_hg104_512x512_coco17_tpu-8/export/label_map.pbtxt"
+
+# for webcam
 python inference.py -w -e Tensorflow/workspace/models/my_centernet_hg104_512x512_coco17_tpu-8/export -l "Tensorflow/workspace/models/my_centernet_hg104_512x512_coco17_tpu-8/export/label_map.pbtxt"
 
 NOTE: There are some images available in the `images/test_images` folder that you may use to test face mask detection
@@ -170,11 +176,8 @@ def draw_results(detections, image_np, min_score_thresh=0.6):
 if not args["webcam"] and os.path.isfile(args["input_dir"]):
     ## Inference for a single image
 
-    # ## Randomly select one image from the img_paths
-    # img_paths = list(list_images(os.path.join(paths["IMAGE_PATH"], 'test')))
-    # img_path = np.random.choice(img_paths)
-    ## Or specifically select one image
-    img_path = r"Tensorflow/workspace/images/test/IMG_3592_M2MGdWa.jpg"
+    # specifically select one image
+    img_path = args["input_dir"]
 
     image_np = load_image_into_numpy_array(img_path)
     print(f"[INFO] Detecting from the image {img_path} ...")
