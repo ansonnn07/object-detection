@@ -16,8 +16,20 @@ NOTE: In the Jupyter notebook, only the `50`, `20`, `10`, and `5 cents` classes 
 **Third Series** <br>
 [![third-series-coins](images/syiling_3.gif)](https://www.bnm.gov.my/-/third-series-of-malaysian-coins)
 
-## Package Installation
-NOTE: For this project, it is assumed that you have already installed Anaconda in your machine. The installation for this TFOD API is based on the [docs here](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html).
+## Details of steps
+Refer to the `1. Image Collection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/1.%20Image%20Collection.ipynb) for the steps for collecting and labeling the images.
+
+For training, you may open the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) directly in [Google Colab](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to train there. Or download the notebook to train locally.
+
+You may also refer to the following Colab notebooks to examine the trained version for each of the 3 datasets used in this repo. But the procedure is exactly the same, with only a few modifications to accomodate the download the dataset, and also to modify the class labels for different datasets.
+1. Coin detection dataset (small, 29 images, captured with iPhone, trained with SSD model): [link](https://colab.research.google.com/drive/1M0IN3Ya3jT_7UOJ5N2wLepk2ypR78KFB?usp=sharing)
+2. Coin detection dataset (large, 277 images, from Google Search, trained with SSD model): [link](https://colab.research.google.com/drive/1aTliHKpwqxZaokf2YTmg0vwmRPUJnpzY?usp=sharing)
+3. Face Mask Detection dataset (853 images, trained with CenterNet model): [link](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing)
+
+## Package Installation for Local Machine
+NOTE: If you are on Google Colab, you only need to run some of the cells in the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to install TFOD API, you **DO NOT** need to run the installation steps here.
+
+For this project, it is assumed that you have already installed Anaconda in your machine. The installation for this TFOD API is based on the [official docs here](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html). 
 
 Run the following command in your Anaconda prompt (Anaconda's terminal or your terminal of choice) to create a virtual environment named `tfod` with Python version 3.8 installed:
 ```
@@ -99,12 +111,7 @@ docker run --rm -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/
 **NOTE**: If you don't have Docker installed in your machine. Then follow the [instructions here at the docs](https://docs.docker.com/get-docker/) to install first. If you are on Windows, you will need to setup both Windows Subsystem for Linux (WSL) and Docker. Windows will need to use WSL in order for the program to work properly. Follow the [documentation here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for setting up WSL.
 </details>
 
-## Details
-Refer to the `1. Image Collection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/1.%20Image%20Collection.ipynb) for the steps for collecting and labeling the images.
-
-For training, you may open the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) directly in [Google Colab](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to train there. Or download the notebook to train locally.
-
-You may also refer to the following Colab notebooks to examine the trained version for each of the 3 datasets used in this repo. But the procedure is exactly the same, with only a few modifications to accomodate the download the dataset, and also to modify the class labels for different datasets.
-1. Coin detection dataset (small, 29 images, captured with iPhone): [link](https://colab.research.google.com/drive/1M0IN3Ya3jT_7UOJ5N2wLepk2ypR78KFB?usp=sharing)
-2. Coin detection dataset (large, 277 images, from Google Search): [link](https://colab.research.google.com/drive/1aTliHKpwqxZaokf2YTmg0vwmRPUJnpzY?usp=sharing)
-3. Face Mask Detection dataset (853 images): [link](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing)
+TODO: 
+- Add demo images to the `images` folder !!
+- Fix the update config step to change to manually update!
+- Make an inference script/notebook to show how to run inference
