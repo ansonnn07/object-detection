@@ -100,6 +100,11 @@ docker run --rm -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/
 </details>
 
 ## Details
-Refer to the `1. Image Collection.ipynb` notebook for the steps for collecting and labeling the images.
+Refer to the `1. Image Collection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/1.%20Image%20Collection.ipynb) for the steps for collecting and labeling the images.
 
-For training, you may open the `2. Training and Detection.ipynb` notebook directly in [Google Colab](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to train there. Or download the notebook to train locally.
+For training, you may open the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) directly in [Google Colab](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to train there. Or download the notebook to train locally.
+
+You may also refer to the following Colab notebooks to examine the trained version for each of the 3 datasets used in this repo. But the procedure is exactly the same, with only a few modifications to accomodate the download the dataset, and also to modify the class labels for different datasets.
+1. Coin detection dataset (small, 29 images, captured with iPhone): [link](https://colab.research.google.com/drive/1M0IN3Ya3jT_7UOJ5N2wLepk2ypR78KFB?usp=sharing)
+2. Coin detection dataset (large, 277 images, from Google Search): [link](https://colab.research.google.com/drive/1aTliHKpwqxZaokf2YTmg0vwmRPUJnpzY?usp=sharing)
+3. Face Mask Detection dataset (853 images): [link](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing)
