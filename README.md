@@ -1,11 +1,12 @@
 # Custom Training with TensorFlow Object Detection (TFOD) API
 
 ## Summary
-A project to train an object detection model to detect Malaysia coins and the value of the coins.
+A project that shows how to collect images and most importantly, how to train object detection model using TensorFlow Object Detection (TFOD) API. There will be two use cases here:
+1. Coin detection, both using a small dataset (29 images) and a larger dataset (277 images)
+2. Face mask detection. 
 
+### Coin Detection
 The Malaysia coins that can be detected are only from the three images below. This is based on the Malaysia's standard according to the government Website for [First Series](https://www.bnm.gov.my/-/the-first-series-past-coin) and [Second Series](https://www.bnm.gov.my/-/the-second-series-past-coin) and [Third Series](https://www.bnm.gov.my/-/third-series-of-malaysian-coins).
-
-NOTE: In the Jupyter notebook, only the `50`, `20`, `10`, and `5 cents` classes will be used because both `1 cent` and `1 ringgit` coins are not usable in Malaysia anymore.
 
 **First Series** <br>
 [![first-series-coins](images/syiling_1.png)](https://www.bnm.gov.my/-/the-first-series-past-coin)
@@ -16,25 +17,34 @@ NOTE: In the Jupyter notebook, only the `50`, `20`, `10`, and `5 cents` classes 
 **Third Series** <br>
 [![third-series-coins](images/syiling_3.gif)](https://www.bnm.gov.my/-/third-series-of-malaysian-coins)
 
+NOTE: In the Jupyter notebook, only the `50`, `20`, `10`, and `5 cents` classes will be used because both `1 cent` and `1 ringgit` coins are not usable in Malaysia anymore. 
+
+There will be two datasets used for coin detection, the first one consists of only 29 images captured with iPhone, while the second one consists of 277 images scraped from Google Search and cleaned up. For the small dataset, only `coin` class is decided to be used for training due to the small dataset; while for the larger dataset, different classes such as `1c` (1 cent), `1r` (1 ringgit), `5`, `10`, `20`, and `50` cents can be detected, but still did not perform so well due to the need of more images. You may refer to the Colab notebooks here to see the training process and results:
+
+1. Coin detection (small dataset, 29 images, captured with iPhone, trained with SSD model): [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1M0IN3Ya3jT_7UOJ5N2wLepk2ypR78KFB?usp=sharing)
+2. Coin detection (large dataset, 277 images, from Google Search, trained with SSD model): [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1aTliHKpwqxZaokf2YTmg0vwmRPUJnpzY?usp=sharing)
+
+
+### Face Mask Detection
+The face mask detection model is trained on the dataset obtained from Kaggle [here](https://www.kaggle.com/andrewmvd/face-mask-detection), which can detect the classes of `with_mask`, `without_mask` and `mask_weared_incorrect`. You may refer to the training process in Colab Notebook here:
+- Face Mask Detection (853 images, trained with CenterNet model): [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing)
+
 ## Details of steps
-Refer to the `1. Image Collection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/1.%20Image%20Collection.ipynb) for the steps for collecting and labeling the images.
+Refer to the `1. Image Collection.ipynb` [notebook](https://github.com/ansonnn07/object-detection/blob/main/1.%20Image%20Collection.ipynb) for the steps for collecting and labeling the images.
 
-For training, you may open the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) directly in [Google Colab](https://colab.research.google.com/github/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to train there. Or download the notebook to train locally.
+For training, you may open the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/object-detection/blob/main/2.%20Training%20and%20Detection.ipynb) directly in [Google Colab](https://colab.research.google.com/github/ansonnn07/object-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to train there. Or download the notebook to train locally.
 
-You may also refer to the following Colab notebooks to examine the trained version for each of the 3 datasets used in this repo. But the procedure is exactly the same, with only a few modifications to accomodate the download the dataset, and also to modify the class labels for different datasets.
-1. Coin detection dataset (small, 29 images, captured with iPhone, trained with SSD model): [link](https://colab.research.google.com/drive/1M0IN3Ya3jT_7UOJ5N2wLepk2ypR78KFB?usp=sharing)
-2. Coin detection dataset (large, 277 images, from Google Search, trained with SSD model): [link](https://colab.research.google.com/drive/1aTliHKpwqxZaokf2YTmg0vwmRPUJnpzY?usp=sharing)
-3. Face Mask Detection dataset (853 images, trained with CenterNet model): [link](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing)
+Although there are 3 different Colab Notebooks (linked above) for each of the training use cases, the procedure is exactly the same with some modifications to the **class names** as well as the required **paths** to point to the correct files and directories.
 
 There is also an `inference.py` script added to show how to run inference on single image, or multiple images, or webcam, after loading an exported trained model.
 
 ## Demo of Inference
-This demo is recorded from the Face Mask Detection [notebook](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing).
+This demo is recorded from the Face Mask Detection [Colab notebook](https://colab.research.google.com/drive/11ciR0XNAvICh5teg0AaFsK7sK8iSzVoh?usp=sharing).
 
 ![demo-video](images/demo.gif)
 
 ## Package Installation for Local Machine
-NOTE: If you are on Google Colab, you only need to run some of the cells in the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/coin-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to install TFOD API, you **DO NOT** need to run the installation steps here.
+NOTE: If you are on Google Colab, you only need to run some of the cells in the `2. Training and Detection.ipynb` [notebook](https://github.com/ansonnn07/object-detection/blob/main/2.%20Training%20and%20Detection.ipynb) to install TFOD API, you **DO NOT** need to run the installation steps here.
 
 For this project, it is assumed that you have already installed Anaconda in your machine. The installation for this TFOD API is based on the [official docs here](https://tensorflow-object-detection-api-tutorial.readthedocs.io/en/latest/install.html). 
 
@@ -117,8 +127,3 @@ docker run --rm -it -p 8080:8080 -v `pwd`/mydata:/label-studio/data heartexlabs/
 
 **NOTE**: If you don't have Docker installed in your machine. Then follow the [instructions here at the docs](https://docs.docker.com/get-docker/) to install first. If you are on Windows, you will need to setup both Windows Subsystem for Linux (WSL) and Docker. Windows will need to use WSL in order for the program to work properly. Follow the [documentation here](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for setting up WSL.
 </details>
-
-TODO: 
-- Add demo images to the `images` folder !!
-- Fix the update config step to change to manually update!
-- Make an inference script/notebook to show how to run inference
