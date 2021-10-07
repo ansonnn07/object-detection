@@ -61,6 +61,7 @@ parser.add_argument(
     # therefore the script needs to append the file extension at the end
     help="Extension of the images used, excluding the 'dot'. REQUIRED FOR LABEL STUDIO",
     type=str,
+    nargs="*",
     default=None,
 )
 parser.add_argument(
@@ -75,17 +76,6 @@ args = parser.parse_args()
 
 if args.image_dir is None:
     args.image_dir = args.xml_dir
-
-if args.image_ext:
-    # remove quotes if passed in by user
-    args.image_ext = args.image_ext.strip().replace("'", "")
-    args.image_ext = args.image_ext.replace('"', "")
-    if " " in args.image_ext:
-        # split into list for multiple extensions
-        args.image_ext = args.image_ext.split(" ")
-    else:
-        # append to a list to be able to loop it later
-        args.image_ext = [args.image_ext]
 
 label_map = label_map_util.load_labelmap(args.labels_path)
 label_map_dict = label_map_util.get_label_map_dict(label_map)
